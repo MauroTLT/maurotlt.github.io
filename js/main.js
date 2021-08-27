@@ -1,19 +1,20 @@
 document.addEventListener("DOMContentLoaded", function(){
-  var options = ["1", "2", "3"];
-
-  var startAngle = 0;
-  var arc = Math.PI / (options.length / 2);
-  var spinTimeout = null;
-
-  var spinArcStart = 10;
-  var spinTime = 0;
-  var spinTimeTotal = 0;
-
-  var ctx;
   document.getElementById("spin").addEventListener("click", spin);
   drawRouletteWheel();
   console.log("HOLA");
 });
+
+var options = ["1", "2", "3"];
+
+var startAngle = 0;
+var arc = Math.PI / (options.length / 2);
+var spinTimeout = null;
+
+var spinArcStart = 10;
+var spinTime = 0;
+var spinTimeTotal = 0;
+
+var ctx;
 
 function byte2Hex(n) {
   var nybHexString = "0123456789ABCDEF";
