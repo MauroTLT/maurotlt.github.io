@@ -1,8 +1,3 @@
-document.addEventListener("DOMContentLoaded", function(){
-  document.getElementById("spin").addEventListener("click", spin);
-  drawRouletteWheel();
-  console.log("HOLA");
-});
 
 var options = ["1", "2", "3"];
 
@@ -15,6 +10,30 @@ var spinTime = 0;
 var spinTimeTotal = 0;
 
 var ctx;
+
+var textarea = null;
+
+document.addEventListener("DOMContentLoaded", function(){
+  document.getElementById("spin").addEventListener("click", spin);
+
+  textarea = document.getElementById("names");
+  textarea.value = options.join('\n');
+  textarea.addEventListener("keyup", function (event) {
+    options = textarea.value.split('\n').filter((t) => t != "");
+    resetVariables();
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.code == "Space") {
+      event.preventDefault();
+      spin();
+    } else if (event.code == "KeyR") {
+      location.reload();
+    }
+  });
+
+  drawRouletteWheel();
+});
 
 function byte2Hex(n) {
   var nybHexString = "0123456789ABCDEF";
@@ -38,10 +57,21 @@ function getColor(item, maxitem) {
   return RGB2Color(red,green,blue);
 }
 
+function resetVariables() {
+  startAngle = 0;
+  arc = Math.PI / (options.length / 2);
+  spinTimeout = null;
+
+  spinArcStart = 10;
+  spinTime = 0;
+  spinTimeTotal = 0;
+  drawRouletteWheel();
+}
+
 function drawRouletteWheel() {
   var canvas = document.getElementById("canvas");
   if (canvas.getContext) {
-    var outsideRadius = 200;
+    var outsideRadius = 225;//200
     var textRadius = 160;
     var insideRadius = 125;
 
@@ -51,7 +81,7 @@ function drawRouletteWheel() {
     ctx.strokeStyle = "black";
     ctx.lineWidth = 2;
 
-    ctx.font = 'bold 12px Helvetica, Arial';
+    ctx.font = 'bold 24px Helvetica, Arial';
 
     for(var i = 0; i < options.length; i++) {
       var angle = startAngle + i * arc;
@@ -94,14 +124,11 @@ function drawRouletteWheel() {
 }
 
 function spin() {
+  resetVariables()
   spinAngleStart = 100;
   spinTime = 0;
-  spinTimeTotal = Math.random() * (9880 - 9750) + 9750;
+  spinTimeTotal = Math.random() * (9740 - 9460) + 9460;
   rotateWheel();
-  // 10 + 130
-  // 9460 - 9595 -> BLUE
-  // 9610 - 9740 -> GREEN
-  // 9750 - 9880 -> ORANGE
 }
 
 function rotateWheel() {
