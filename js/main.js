@@ -11,8 +11,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
   var ctx;
 
-  document.getElementById("spin").addEventListener("click", spin);
-
   function byte2Hex(n) {
     var nybHexString = "0123456789ABCDEF";
     return String(nybHexString.substr((n >> 4) & 0x0F,1)) + nybHexString.substr(n & 0x0F,1);
@@ -130,6 +128,6 @@ document.addEventListener("DOMContentLoaded", function(){
     var tc = ts*t;
     return b+c*(tc + -3*ts + 3*t);
   }
-
+  document.getElementById("spin").addEventListener("click", spin);
   drawRouletteWheel();
 });
