@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function(){
     if (event.code == "Space") {
       event.preventDefault();
       spin();
-    } else if (event.code == "KeyR") {
+    } else if (event.code == "KeyR" && document.activeElement != textarea) {
       location.reload();
     }
   });
